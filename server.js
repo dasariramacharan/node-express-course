@@ -25,6 +25,30 @@ app.get('/users/:id', function (req, res) {
     });
 });
 
+app.post('/users/add', function (req, res) {    
+    console.log(req.body.username);
+    const username = req.body.username;
+
+    if (!username) {
+        res.json({
+            message: "provide a username"
+        });
+    }
+    else if (mockUserData.find(f => f.name === username)) {
+        
+        res.json({
+            message: " user already exists"
+        });
+    }
+    else {
+        mockUserData.push({ name: username });
+        res.json({
+            message: "user added to list"
+        });
+    }
+    console.log(mockUserData);
+});
+
 app.post('/login', function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
